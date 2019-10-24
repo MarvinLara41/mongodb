@@ -7,7 +7,7 @@ const app = express();
 const exphbs = require("express-handlebars");
 const PORT = process.env.PORT || 3000;
 
-const routes = require("./controller/controller")
+const routes = require("./controller/controller");
 app.use("/", routes);
 
 
