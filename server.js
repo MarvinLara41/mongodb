@@ -30,6 +30,11 @@ app.set("view engine", "handlebars");
 
 //set up connection to mongo
 mongoose.connect(process.env.MONGODB_URI ||"mongodb://mongo:mongo123@ds031747.mlab.com:31747/heroku_xgjfnn41");
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+  }
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(){
