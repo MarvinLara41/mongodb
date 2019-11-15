@@ -9,7 +9,7 @@ const path = require("path");
 const request = require("request");
 const cheerio = require("cheerio");
 
-//connections to the model folder
+//connections to the model folder using schema as a template
 const Comment = require("../models/comments");
 const Article = require("../models/article");
 
@@ -111,8 +111,8 @@ router.get("/readArticle/:id", function (req,res){
     };
 
 
-    Article.findOne({__id: articleId})
-    .populate("comments")
+    Article.findOne({_id: articleId})
+    .populate("comment")
     .exec(function(err, doc){
         if (err){
             console.log("error "+ err);
@@ -158,14 +158,14 @@ router.post("/comment/:id", function(req,res){
             console.log(articleId);
 
             Article.findOneAndUpdate(
-                {__id: req.params.id},
+                {_id: req.params.id},
                 {$push: {comments: doc._id}},
                 {new: true}
             ).exec(function(err, doc){
                 if (err){
                     console.log(err);
                 }else{
-                    res.redirect("/readArticle"+ articleId);
+                    res.redirect("/readArticle/"+ articleId);
                 }
             })
         }

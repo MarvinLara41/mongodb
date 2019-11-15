@@ -29,7 +29,7 @@ app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 //set up connection to mongo
-mongoose.connect("mongodb://localhost/scraped_news");
+mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost/scraped_news");
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(){
